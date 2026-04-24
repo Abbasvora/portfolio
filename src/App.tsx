@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 const stats = [
   { label: 'IoT Devices Processed', value: '5,000+' },
   { label: 'Concurrent WebSockets', value: '2,000+' },
