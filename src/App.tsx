@@ -50,28 +50,10 @@ const timeline = [
 ];
 
 export default function App() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
-
-    const items = document.querySelectorAll('.reveal');
-    items.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="app">
       <header className="hero section">
-        <div className="hero-content reveal">
+        <div className="hero-content">
           <p className="eyebrow">Backend-Focused Full-Stack Engineer</p>
           <h1>Abbas Vora</h1>
           <p className="subtitle">
@@ -86,41 +68,31 @@ export default function App() {
             <span>✅ Open to relocation & remote</span>
           </div>
         </div>
-        <div className="hero-visual reveal">
-          <div className="orbital-ui">
-            <div className="aurora" />
-            <div className="glass-card card-a">
-              <p>Live Ingestion</p>
-              <h3>&lt;100ms</h3>
-            </div>
-            <div className="glass-card card-b">
-              <p>WebSocket Scale</p>
-              <h3>2,000+</h3>
-            </div>
-            <div className="glass-card card-c">
-              <p>Query Reduction</p>
-              <h3>64%</h3>
-            </div>
-            <div className="grid-fx" />
+        <div className="hero-visual">
+          <div className="scene">
+            <div className="ring ring-one" />
+            <div className="ring ring-two" />
+            <div className="cube" />
+            <div className="glow" />
           </div>
         </div>
       </header>
 
       <section className="section stats-grid">
-        {stats.map((item, idx) => (
-          <article key={item.label} className="card stat reveal" style={{ ['--delay' as string]: `${idx * 100}ms` }}>
+        {stats.map((item) => (
+          <article key={item.label} className="card stat">
             <h3>{item.value}</h3>
             <p>{item.label}</p>
           </article>
         ))}
       </section>
 
-      <section className="section reveal">
+      <section className="section">
         <h2>Technology Stack</h2>
         <p className="section-copy">Core tools and frameworks I use for production-grade engineering.</p>
         <div className="logo-grid">
-          {tech.map((name, idx) => (
-            <div key={name} className="logo-card reveal" style={{ ['--delay' as string]: `${idx * 60}ms` }}>
+          {tech.map((name) => (
+            <div key={name} className="logo-card">
               <span className="logo-dot" />
               <span>{name}</span>
             </div>
@@ -129,7 +101,7 @@ export default function App() {
       </section>
 
       <section className="section split">
-        <div className="reveal">
+        <div>
           <h2>What I build</h2>
           <p className="section-copy">
             From telemetry ingestion to live dashboard streaming, I focus on clean architecture, low latency APIs, and resilient distributed workflows.
@@ -141,7 +113,7 @@ export default function App() {
             <li>🔐 Secure role-based APIs and modular service design</li>
           </ul>
         </div>
-        <div className="timeline card reveal">
+        <div className="timeline card">
           <h3>Impact Highlights</h3>
           <ol>
             {timeline.map((point) => (
@@ -151,11 +123,11 @@ export default function App() {
         </div>
       </section>
 
-      <section className="section reveal">
+      <section className="section">
         <h2>Featured Projects</h2>
         <div className="projects-grid">
-          {projects.map((project, idx) => (
-            <article key={project.title} className="card project reveal" style={{ ['--delay' as string]: `${idx * 120}ms` }}>
+          {projects.map((project) => (
+            <article key={project.title} className="card project">
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <div className="tags">
@@ -168,7 +140,7 @@ export default function App() {
         </div>
       </section>
 
-      <footer className="section footer reveal">
+      <footer className="section footer">
         <h2>Let’s build something fast, scalable, and reliable.</h2>
         <p>Email: <a href="mailto:abbasvora23@gmail.com">abbasvora23@gmail.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/abbas-vora" target="_blank" rel="noreferrer">abbas-vora</a></p>
       </footer>
