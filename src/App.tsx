@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const stats = [
   { label: 'IoT Devices Processed', value: '5,000+' },
@@ -49,7 +49,15 @@ const timeline = [
   'Optimized MongoDB performance from 900ms to 250ms with indexing + aggregations.',
 ];
 
+const typingPhrases = [
+  'real-time systems.',
+  'IoT processing pipelines.',
+  'high-performance backend products.',
+];
+
 export default function App() {
+  const [typedText, setTypedText] = useState('');
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -68,6 +76,42 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let timeoutId: number;
+
+    const tick = () => {
+      const currentPhrase = typingPhrases[phraseIndex];
+
+      if (deleting) {
+        charIndex -= 1;
+      } else {
+        charIndex += 1;
+      }
+
+      setTypedText(currentPhrase.slice(0, charIndex));
+
+      if (!deleting && charIndex === currentPhrase.length) {
+        deleting = true;
+        timeoutId = window.setTimeout(tick, 1400);
+        return;
+      }
+
+      if (deleting && charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+      }
+
+      timeoutId = window.setTimeout(tick, deleting ? 45 : 85);
+    };
+
+    timeoutId = window.setTimeout(tick, 600);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
   return (
     <div className="app">
       <header className="hero section">
@@ -75,7 +119,12 @@ export default function App() {
           <p className="eyebrow">Backend-Focused Full-Stack Engineer</p>
           <h1>Abbas Vora</h1>
           <p className="subtitle">
-            I build scalable real-time systems, IoT processing pipelines, and high-performance products with Node.js, TypeScript, Redis, and Docker.
+            I build{' '}
+            <span className="typing-text">
+              {typedText}
+              <span className="typing-cursor" aria-hidden="true" />
+            </span>{' '}
+            with Node.js, TypeScript, Redis, and Docker.
           </p>
           <div className="cta-row">
             <a href="mailto:abbasvora23@gmail.com" className="btn btn-primary">Get in touch</a>
@@ -175,7 +224,4 @@ export default function App() {
     </div>
   );
 }
-<<<<<<< ours
 
-=======
->>>>>>> theirs
